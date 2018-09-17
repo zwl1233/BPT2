@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./css/DPlayer.min.css" type="text/css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+        .bptPlay {
+            position: fixed;
+            top: 100px;
+            right: 100px;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            background: url("./img/Group@3x.png")no-repeat center;
+            box-shadow:inset -3px -3px 10px 2px rgba(0, 0, 0, 0.2)
+        }
+        .bptPlay1{
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border: 1px solid rgba(92, 184, 250, 1);
+            border-radius: 50%;
+            top:50%;
+            left:50%;
+            margin-left:-25px;
+            margin-top:-25px; 
+            box-sizing: border-box;
+            display:none;
+        }
+        .bptPlay2{
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border: 1px solid rgba(92, 184, 250, 1);
+            border-radius: 50%;
+            top:50%;
+            left:50%;
+            margin-left:-25px;
+            margin-top:-25px; 
+            display:none;
+        }
+        
+        .videoList {
+            top: 0;
+            position: absolute;
+            right: 60px;
+            width: 356px;
+            height: 328px;
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            display: none;
+        }
+
+        .videoTitle {
+            height: 42px;
+            width: 100%;
+            line-height: 42px;
+            border-bottom: 1px solid rgba(243, 243, 243, 1);
+        }
+
+        .videoTitle_text {
+            display: inline-block;
+            width: 49px;
+            height: 22px;
+            font-size: 16px;
+            font-family: PingFangSC-Medium;
+            font-weight: 500;
+            color: rgba(64, 141, 186, 1);
+            line-height: 22px;
+            margin-left: 22px;
+            -webkit-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+            user-select:none;
+        }
+
+        .infoList {
+            width: 100%;
+            height: 285px;
+            overflow: scroll;
+            padding: 0 33px 0 22px;
+            box-sizing: border-box;
+            position: relative;
+            -ms-overflow-style:none;
+            overflow:-moz-scrollbars-none;
+        }
+
+        .videoList_arrow {
+            width: 0;
+            height: 0;
+        }
+
+        .videoList_arrowRight {
+            width: 0;
+            height: 0;
+            border: 8px solid;
+            border-color: transparent transparent transparent rgba(255, 255, 255, 1);
+            position: absolute;
+            top: 20px;
+            right: -15px;
+        }
+
+        .videoList_arrowLeft {
+            width: 0;
+            height: 0;
+            border: 8px solid;
+            border-color: transparent rgba(255, 255, 255, 1) transparent transparent;
+            position: absolute;
+            top: 20px;
+            right: 356px;
+        }
+
+        .infoList::-webkit-scrollbar {
+            display: none;
+        }
+
+        .infoList>li {
+            width: 100%;
+            height: 69px;
+            border-bottom: 1px solid rgba(243, 243, 243, 1);
+            box-sizing: border-box;
+            padding: 17px 0;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .infoList>li:last-child {
+            border: none
+        }
+
+        .playIcon {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1px solid rgba(64, 141, 186, 1);
+            position: relative;
+            vertical-align: top;
+            margin-right: 5px;
+        }
+
+        .playTrian {
+            width: 0;
+            height: 0;
+            border: 5px solid rgba(64, 141, 186, 1);
+            border-right-color: transparent;
+            border-top-color: transparent;
+            border-bottom-color: transparent;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -5px;
+            margin-left: -2.5px;
+        }
+
+        .infoList_text {
+            display: inline-block;
+        }
+
+        .infoDesc {
+            width: 249px;
+            height: 17px;
+            font-size: 12px;
+            font-family: PingFangSC-Regular;
+            font-weight: 400;
+            color: rgba(51, 51, 51, 1);
+            line-height: 17px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-bottom: 5px;
+        }
+
+        .infoTime {
+            width: 249px;
+            height: 17px;
+            font-size: 12px;
+            font-family: PingFangSC-Regular;
+            font-weight: 400;
+            color: rgba(153, 153, 153, 1);
+            line-height: 17px;
+        }
+
+        .infoNew {
+            display: inline-block;
+            width: 16px;
+            height: 10px;
+            position: absolute;
+            right: 8px;
+            top: 17px;
+        }
+
+        .infoNew img {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* .videoMask {
+            width: 100%;
+            height: 100%;
+            background: rgba(112, 112, 112, .6);
+            position: fixed;
+            display: none;
+            z-index: 10;
+            top:0;
+
+        } */
+
+        .BPTvideo {
+            width: 0;
+            height: 0;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            margin-left: 0;
+            margin-top: 0;
+            z-index: 20;
+        }
+        .BPTvideo>video{
+            width: 100%;
+            height: 100%;
+        }
+
+        .dplayer {
+            width: 100%;
+            height: 100%;
+        }
+
+        .closeBox {
+            width: 100%;
+            height: 45px;
+            line-height: 45px;
+            position: absolute;
+            top: 0;
+            z-index: 30;
+            font-size: 14px;
+            font-family: PingFangSC-Regular;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 1);
+            padding-left: 10px;
+            background: rgba(64, 69, 73, .4);
+            box-sizing: border-box;
+            display: none;
+            border-bottom: 1px solid rgba(99, 110, 120, .5);
+        }
+        .closeBox p{
+            width: 50%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .close {
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            width: 2px;
+            height: 20px;
+            background: rgba(255, 255, 255, 1);
+            -webkit-transform: rotate(45deg) translate(0, -50%);
+            -moz-transform: rotate(45deg) translate(0, -50%);
+            -o-transform: rotate(45deg) translate(0, -50%);
+            -ms-transform: rotate(45deg) translate(0, -50%);
+            transform: rotate(45deg) traslate(0, -50%);
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .close:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 20px;
+            background: rgba(255, 255, 255, 1);
+            -webkit-transform: rotate(270deg);
+            -moz-transform: rotate(270deg);
+            -o-transform: rotate(270deg);
+            -ms-transform: rotate(270deg);
+            transform: rotate(270deg);
+        }
+        .pic{
+            width: 100%;
+            height: 100%;
+        }
+        .pic img{
+            width: 100%;
+            height: 100%;
+        }
+
+        
+    </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div class="pic">
+        <img src="./img/BPT.png" alt="">
+    </div>
+    <div>
+        <div class="bptPlay">
+            <div class="bptPlay1"></div>
+            <div class="bptPlay2"></div>
+            <div class="videoList">
+                <div class="videoTitle">
+                    <div class="videoTitle_text">
+                        VIDEO
+                    </div>
+                </div>
+                <ul class="infoList">
+                    <!-- <li>
+                                <div class="playIcon">
+                                    <div class="playTrian"></div>
+                                </div>
+                                <div class="infoList_text">
+                                    <p class="infoDesc" title="Country Portfolio & Country Plan User guide">Country Portfolio &
+                                        Country Plan User guide</p>
+                                    <p class="infoTime">2018.09.12 10:20</p>
+                                </div>
+                                <div class="infoNew">
+                                    <img src="./img/new.gif" alt="">
+                                </div>
+                            </li> -->
+                </ul>
+                <div class="videoList_arrow videoList_arrowRight"></div>
+            </div>
+        </div>
+        <!-- <div class="videoMask"></div> -->
+        <div class="BPTvideo">
+            <div class="closeBox">
+                <p></p>
+                <div>
+                    <span class="close"></span>
+                </div>
+            </div>
+            <div class="dplayer"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/DPlayer.min.js"></script>
+    <script>
+        (function ($) {
+            var $bptPlay = $(".bptPlay"),
+                $videoList = $(".videoList"),
+                $videoList_arrow = $(".videoList_arrow"),
+                $bptPlay1=$(".bptPlay1"),
+                $bptPlay2=$(".bptPlay2");
+            //按钮拖拽
+            //定义函数
+            function down(e) {
+                //console.log(e)
+                //记录位置
+                this.x = e.clientX;
+                this.y = e.clientY;
+                //获取当前right值
+                this.right = $(this).css("right");
+
+                this.top = $(this).css("top");
+                //绑定事件
+                $(document).on("mousemove", move.bind(this)).on("mouseup", up.bind(this))
+            }
+
+            function move(e) {
+                //移动的距离
+                var x = e.clientX - this.x;
+                var y = e.clientY - this.y;
+                //元素目前所处位置
+                var right = parseFloat(this.right) - x;
+                var top = y + parseFloat(this.top);
+                //边界值处理
+                var maxTop = $(document).height() - $(this).outerHeight();
+                var maxRight = $(document).width() - $(this).outerWidth();
+                right = right > maxRight ? maxRight : right < 0 ? 0 : right;
+                top = top > maxTop ? maxTop : top < 0 ? 0 : top;
+
+                //video盒子边界处理
+                //水平方向  左:365
+                var W = $(document).width() - $(this).outerWidth() - $videoList.width()
+                if (right > W) {
+                    $videoList.css({
+                        right: -365
+                    })
+                    $videoList_arrow.removeClass("videoList_arrowRight").addClass("videoList_arrowLeft")
+                } else {
+                    //右
+                    $videoList.css({
+                        right: 60
+                    })
+                    $videoList_arrow.removeClass("videoList_arrowLeft").addClass("videoList_arrowRight")
+                }
+                //垂直方向
+                var H = $videoList.height()
+                if (top > H) {
+                    $videoList.css({
+                        top: -285
+                    })
+                    $videoList_arrow.css({
+                        top: 300
+                    })
+
+                } else {
+                    $videoList.css({
+                        top: 0
+                    })
+                    $videoList_arrow.css({
+                        top: 20
+                    })
+                }
+                //元素应所处的位置
+                $(this).css({
+                    right: right,
+                    top: top
+                })
+            }
+
+            function up(e) {
+                //移除事件
+                $(document).off()
+            }
+            $bptPlay.on("mousedown", down)
+
+            //鼠标经过
+            $bptPlay.on("mouseenter", function (e) {
+                $bptPlay1.show();
+                $bptPlay2.show()
+                $bptPlay1.animate({
+                    width:60,
+                    height:60,
+                    marginLeft:-30,
+                    marginTop:-30
+                },1000)
+                $bptPlay2.animate({
+                    width:70,
+                    height:70,
+                    marginLeft:-35,
+                    marginTop:-35
+                },1000)
+                $videoList.show()
+            }).on("mouseleave", function (e) {
+                $bptPlay1.hide();
+                $bptPlay2.hide()
+                $bptPlay1.animate({
+                    width:50,
+                    height:50,
+                    marginLeft:-25,
+                    marginTop:-25
+                },1000)
+                $bptPlay2.animate({
+                    width:50,
+                    height:50,
+                    marginLeft:-25,
+                    marginTop:-25
+                },1000)
+                $videoList.hide()
+            })
+            //模拟数据
+            var ary = [{
+                    info: "视频一视频一视频一视频一视频一视频一视频一视频一视频一视频一视频一视频一视频一视频一",
+                    video: "https://pic.ibaotu.com/00/28/38/4888piCQ888piCF4G.mp4",
+                    time: "2018-09-12",
+                    new: true
+                },
+                {
+                    info: "视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二",
+                    video: "https://pic.ibaotu.com/00/58/30/37g888piCqYc.mp4",
+                    time: "2018-09-12",
+                    new: false
+                },
+                {
+                    info: "视频三",
+                    video: "https://pic.ibaotu.com/00/58/30/37g888piCqYc.mp4",
+                    time: "2018-09-12",
+                    new: true
+                },
+                {
+                    info: "视频四",
+                    video: "https://pic.ibaotu.com/00/87/67/42W888piC46Z.mp4",
+                    time: "2018-09-12",
+                    new: false
+                },
+                {
+                    info: "视频五",
+                    video: "https://pic.ibaotu.com/00/28/38/4888piCQ888piCF4G.mp4",
+                    time: "2018-09-12",
+                    new: true
+                },
+                {
+                    info: "视频六",
+                    video: "https://pic.ibaotu.com/00/15/96/09Q888piCk2s.mp4",
+                    time: "2018-09-12",
+                    new: false
+                },
+                {
+                    info: "视频七",
+                    video: "https://pic.ibaotu.com/00/87/01/26p888piCFiT.mp4",
+                    time: "2018-09-12",
+                    new: false
+                },
+                {
+                    info: "视频八",
+                    video: "https://pic.ibaotu.com/00/25/76/60w888piCFAz.mp4",
+                    time: "2018-09-12",
+                    new: true
+                },
+            ]
+            var $infoList = $(".infoList");
+
+            var videoAry = [];
+
+            //数据绑定页面
+            var str1 = "",
+                str2 = ""
+            ary.forEach(function (item) {
+                var obj = {
+                    text: item.info,
+                    click: function (dp) {
+                        dp.switchVideo({
+                            url: item.video
+                        })
+                        dp.play()
+                    }
+                };
+                videoAry.push(obj)
+                if (item.new) {
+                    str1 +=
+                        '<li videoSrc=' + item.video +
+                        '><div class="playIcon"><div class="playTrian"></div></div><div class="infoList_text"><p class="infoDesc" title=' +
+                        item.info + '>' + item.info + '</p><p class="infoTime">' + item.time +
+                        '</p></div><div class="infoNew"><img src="./img/new.gif" alt=""></div></li>'
+                } else {
+                    str2 +=
+                        '<li videoSrc=' + item.video +
+                        '><div class="playIcon"><div class="playTrian"></div></div><div class="infoList_text"><p class="infoDesc" title=' +
+                        item.info + '>' + item.info + '</p><p class="infoTime">' + item.time +
+                        '</p></div></li>'
+                }
+            })
+
+            var str = str1 + str2;
+            $infoList.html(str)
+
+            //获取元素
+            var $dplayer = $(".dplayer"),
+                $closeBox = $(".closeBox"),
+                $close = $(".close"),
+               // $videoMask = $(".videoMask"),
+                $textList = $(".infoList>li"),
+                $videoBox = $(".BPTvideo"),
+                $videoList = $(".videoList");
+            //videoTitle
+            function videoTitle() {
+                var timer;
+                $videoBox.on("mouseenter", function () {
+                    $(document).on("mousemove", function (e) {
+                        //判断是否显示
+                        if ($closeBox.css("display") === "none") {
+                            $closeBox.stop().fadeIn()
+                        }
+                        clearTimeout(timer); //移动就会清楚定时器
+                        //移动中
+                        //3秒后判断
+                        timer = setTimeout(function () {
+                            //隐藏
+                            $closeBox.stop().fadeOut()
+                        }, 3000)
+                    })
+                    $closeBox.stop().fadeIn()
+                }).on("mouseleave", function () {
+                    $(document).off()
+                    $closeBox.stop().fadeOut()
+                })
+                //点击关闭
+                $close.click(function () {
+                    $videoBox.animate({
+                        width: 0,
+                        height: 0,
+                        marginLeft: 0,
+                        marginTop: 0,
+                    }, 1000, function () {
+                      //  $videoMask.hide()
+                    })
+                    if (!/MSIE/.test(navigator.userAgent) & !/Trident/.test(navigator.userAgent)) {
+                        dp.pause();
+                    //记录当前的播放时间,下次点击同一视频可继续播放
+                    //console.log(dp.video.currentTime)
+                    }else{
+                            $video[0].pause()
+                    }
+                   
+                })
+            }
+            //区别IE和普通浏览器
+            if (!/MSIE/.test(navigator.userAgent) & !/Trident/.test(navigator.userAgent)) {
+                var dp = new DPlayer({
+                    container: document.getElementsByClassName('dplayer')[0],
+                    autoplay: false,
+                    theme: 'rgba(60, 144, 208, 1)',
+                    loop: false,
+                    lang: 'zh-cn',
+                    hotkey: true,
+                    preload: 'auto',
+                    logo: '',
+                    volume: 0.7,
+                    mutex: true,
+                    video: {
+                        url: 'https://v.mifile.cn/b2c-mimall-media/c2cb94c9485243e1767d43268fb90820.mp4',
+                        pic: '',
+                        type: 'auto'
+                    },
+                    contextmenu: videoAry,
+                });
+                //绑定事件
+                $textList.each(function (index, item) {
+                    $(item).click(function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        //点击隐藏, 记录点击了,新去掉
+                        $videoList.hide();
+                        ary[index].new = false;
+                        //删除DOM树
+                        $(this).children(".infoNew").remove();
+                        //video动画出现
+                      //  $videoMask.show();
+                        //文字绑定
+                        //console.log($(this).find(".infoDesc").html())
+                        var strBox = $(this).find(".infoDesc").html()
+                        $closeBox.children("p").text(strBox)
+                        $videoBox.animate({
+                            width: 570,
+                            height: 360,
+                            marginLeft: -285,
+                            marginTop: -180
+                        }, 1000, function () {
+                            var strPro = $(item).attr("videoSrc")
+                            new Promise(function (resolve, reject) {
+                                dp.switchVideo({
+                                    url: strPro
+                                })
+                                resolve()
+                            }).then(function () {
+                                dp.on("canplay", function () {
+                                    dp.play()
+                                })
+                            })
+                        })
+                    })
+                })
+                //videoBox  关闭事件
+                //鼠标经过
+                videoTitle()
+
+            } else {
+                $dplayer.remove();
+                $videoBox.append(
+                    "<video src='' controls><video/>"
+                )
+                var $video = $(".BPTvideo>video")
+                //绑定事件
+                $textList.each(function (index, item) {
+                    $(item).click(function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        $videoList.hide(), //隐藏
+                            //mask出现
+                            ary[index].new = false;
+                       // $videoMask.show();
+                        $(this).children(".infoNew").remove();
+                        var strBox = $(this).find(".infoDesc").html()
+                        $closeBox.children("p").text(strBox)
+                        var strPro = $(item).attr("videoSrc")
+                        //不同
+                        $video.attr("src", strPro)
+                        $videoBox.animate({
+                            width: 570,
+                            height: 360,
+                            marginLeft: -285,
+                            marginTop: -180
+                        }, 1000, function () {
+                            //播放
+                            $video[0].play()
+                        })
+                        videoTitle()
+                    })
+                })
+            }
+             //视频拖拽
+           function videoDown(e){
+               //记录当前位置
+               this.left=$videoBox.css("left");
+               this.top=$videoBox.css("top");
+               this.x=e.clientX;
+               this.y=e.clientY;
+               //绑定事件
+            //   $(document).on("mousemove",videoMove.bind(this)).on("mouseup",videoUp.bind(this))
+            document.onmousemove=videoMove.bind(this);
+            document.onmouseup=videoUp.bind(this)
+           }
+           function videoMove(e){
+           // console.log(this.top)
+               //计算距离
+               let x=e.clientX-this.x;
+               let y=e.clientY-this.y;
+               //边界判断
+            //let maxLeft=$(document).width()-$videoBox.innerWidth();
+              // let maxTop=document.documentElement.clientHeight-$videoBox.height()
+              // console.log(maxTop,$videoBox.height())
+               //所处位置
+               let left=parseFloat(this.left)+x;
+               let top=parseFloat(this.top)+y;
+             
+               var maxTop = $(document).height() - $(this).outerHeight()-parseFloat($(this).css("marginTop"));;
+                var maxLeft = $(document).width() - $(this).outerWidth()-parseFloat($(this).css("marginLeft"));
+                left=left>maxLeft?maxLeft:(left<0?0:left)
+                top=top>maxTop?maxTop:(top<0?0:top)
+               //赋值
+               $videoBox.css({
+                   left:left,
+                   top:top
+               })
+           }
+           function videoUp(e){
+               //去除事件
+               document.onmousemove=null
+                document.onmouseup=null
+           }
+           $videoBox.on("mousedown",videoDown)
+
+           
+
+
+        })(jQuery)
+    </script>
+</body>
+
+</html>
