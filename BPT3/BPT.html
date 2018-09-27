@@ -34,9 +34,8 @@
             background: rgba(255, 255, 255, 1);
             box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
-            /* display: none; */
+            display: none;
             box-sizing: border-box;
-            /* overflow: hidden; */
         }
         .videoList_buttom{
             width: 100%;
@@ -350,8 +349,7 @@
             }
             //按下
             Drag.prototype.dragDown = function (e) {
-                e.preventDefault()
-                e.stopPropagation()
+                
                 //记录当前位置
                 this.x = e.clientX;
                 this.y = e.clientY;
@@ -364,18 +362,28 @@
                         break;
                         //按钮拖拽
                     case "bptPlay":
+                    e.preventDefault()
+                    e.stopPropagation()
+                  //  console.log(e.target)
+                        if(e.target.className=="infoList")return
                         //获取当前right值
                         this.right = this.ele.css("right");
                         this.top = this.ele.css("top");
                         break;
                         //左边放大缩小
                     case "left":
+                    e.preventDefault()
+                    e.stopPropagation()
                         this.width = parseFloat($videoList.css("width"))
                         break;
                     case "top":
+                    e.preventDefault()
+                    e.stopPropagation()
                         this.height = parseFloat($videoList.css("height"))
                         break;
                     case "top_left":
+                    e.preventDefault()
+                    e.stopPropagation()
                         this.width = parseFloat($videoList.css("width"))
                         this.height = parseFloat($videoList.css("height"))
                         break;
@@ -406,7 +414,6 @@
                             left: left,
                             top: top
                         })
-
                         break;
                     case "bptPlay":
                         //元素目前所处位置
@@ -422,7 +429,6 @@
                         //video盒子边界处理
                         //水平方向  左:365
                         var W = $(document).width() - this.ele.outerWidth() - $videoList.width()
-                      //  console.log($videoList.width())
                         if (right > W) {
                             $videoList.css({
                                 right: -$videoList.width()
@@ -509,18 +515,18 @@
             //鼠标经过
             $(document).on("click", function (e) {
               if($(e.target).parents(".bptPlay").length||e.target.className==="bptPlay"){
-                  if($videoList[0].style.display!=="none")return
+                  if($videoList[0].style.display==="block")return
                 $bptPlay.stop().animate({
                         width: 50,
                         height: 50
                     }, 500)
-                    $videoList.show()
+                    $videoList[0].style.display="block"
               }else{
                 $bptPlay.stop().animate({
                         width: 40,
                         height: 40
                 }, 500)
-                    $videoList.hide()
+                    $videoList[0].style.display="none"
               }          
             })
             //模拟数据
@@ -617,7 +623,6 @@
                             url: item.video
                         })
                         dp.play()
-                        //标题也需要换
                     }
                 };
                 if (item.new) {
@@ -666,7 +671,7 @@
                     })
                     $closeBox.stop().fadeIn()
                 }).on("mouseleave", function () {
-                    $(document).off()
+                    $(document).off("mousemove").off("mouseleave")
                     $closeBox.stop().fadeOut()
                 })
                 //点击关闭
@@ -712,7 +717,11 @@
                         e.preventDefault();
                         e.stopPropagation();
                         //点击隐藏, 记录点击了,新去掉
-                        $videoList.hide();
+                        $bptPlay.stop().animate({
+                        width: 40,
+                        height: 40
+                }, 500)
+                    $videoList[0].style.display="none"
                         ary[index].new = false;
                         //删除DOM树
                         $(this).children(".infoNew").remove();
@@ -757,15 +766,20 @@
                     $(item).click(function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        $videoList.hide(), //隐藏
-                            //mask出现  
-                            ary[index].new = false; //修改数据 
-                        // $videoMask.show();
+                        $bptPlay.stop().animate({
+                        width: 40,
+                        height: 40
+                }, 500)
+                    $videoList[0].style.display="none"
+
+                            
+                        ary[index].new = false; //修改数据 
                         $(this).children(".infoNew").remove();
                         var strBox = $(this).find(".infoDesc").html()
                         $closeBox.children("p").text(strBox)
                         var strPro = $(item).attr("videoSrc")
                         //不同
+                        //切换资源
                         $video.attr("src", strPro)
                         $videoBox.animate({
                             width: 570,
