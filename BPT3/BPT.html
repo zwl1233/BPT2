@@ -34,9 +34,41 @@
             background: rgba(255, 255, 255, 1);
             box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
-            display: none;
+            /* display: none; */
             box-sizing: border-box;
+            /* overflow: hidden; */
         }
+        .videoList_buttom{
+            width: 100%;
+            height: 10px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: transparent;
+            cursor:  n-resize;
+            z-index: 30;
+        }
+        .videoList_left{
+            width: 10px;
+            height:100%;
+            background: transparent;
+            position: absolute;
+            top: 0;
+            left: -10px;
+            cursor: w-resize;
+            z-index: 30;
+        }
+        .videoList_left_buttom{
+            width: 10px;
+            height: 10px;
+            background: transparent;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            cursor: ne-resize;
+            z-index: 30;
+        }
+       
 
         .videoTitle {
             height: 42px;
@@ -63,7 +95,7 @@
 
         .infoList {
             width: 100%;
-            height: 285px;
+            height: 80%;
             overflow: scroll;
             padding: 0 33px 0 22px;
             box-sizing: border-box;
@@ -118,13 +150,18 @@
 
         .infoList>li {
             width: 100%;
-            height: 50px;
+            height: 24px;
             border-bottom: 1px solid rgba(243, 243, 243, 1);
             box-sizing: border-box;
-            padding: 20px 0;
+            /* padding: 10px 0; */
             cursor: pointer;
-            position: relative;
-           
+            /* position: relative; */
+            /* display: flex; */
+            /* justify-content: space-around; */
+            /* align-items: center;  */
+        }
+        .infoList>li:hover{
+            background: rgba(0, 0, 0, 0.1)
         }
 
         .infoList>li:last-child {
@@ -133,35 +170,28 @@
 
         .playIcon {
             display: inline-block;
-            width: 16px;
+            width: 5%;
             height: 16px;
-            border-radius: 50%;
-            border: 1px solid rgba(64, 141, 186, 1);
             position: relative;
-            vertical-align: top;
+            vertical-align: center;
             margin-right: 5px;
+            vertical-align: middle;
         }
 
-        .playTrian {
-            width: 0;
-            height: 0;
-            border: 5px solid rgba(64, 141, 186, 1);
-            border-right-color: transparent;
-            border-top-color: transparent;
-            border-bottom-color: transparent;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin-top: -5px;
-            margin-left: -2.5px;
+        .playIcon>img {
+            width: 100%;
+            height: 100%;
         }
 
         .infoList_text {
+            width: 80%;
+            height:17px;
             display: inline-block;
+            vertical-align: middle;
         }
 
         .infoDesc {
-            width: 249px;
+            width: 100%;
             height: 17px;
             font-size: 12px;
             font-family: PingFangSC-Regular;
@@ -174,23 +204,14 @@
             margin-bottom: 5px;
         }
 
-        .infoTime {
-            width: 249px;
-            height: 17px;
-            font-size: 12px;
-            font-family: PingFangSC-Regular;
-            font-weight: 400;
-            color: rgba(153, 153, 153, 1);
-            line-height: 17px;
-        }
-
         .infoNew {
             display: inline-block;
-            width: 16px;
-            height: 10px;
-            position: absolute;
+            width: 5%;
+            vertical-align: middle;
+            /* height: 10px; */
+            /* position: absolute;
             right: 8px;
-            top: 17px;
+            top: 8px; */
         }
 
         .infoNew img {
@@ -241,36 +262,20 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+       
 
-        .close {
+         .close {
             position: absolute;
-            right: 30px;
-            top: 50%;
-            width: 2px;
-            height: 20px;
-            background: rgba(255, 255, 255, 1);
-            -webkit-transform: rotate(45deg) translate(0, -50%);
-            -moz-transform: rotate(45deg) translate(0, -50%);
-            -o-transform: rotate(45deg) translate(0, -50%);
-            -ms-transform: rotate(45deg) translate(0, -50%);
-            transform: rotate(45deg) traslate(0, -50%);
+            right: 15px;
+            top: 4px;
+            width: 15px;
+            height: 15px;
             display: inline-block;
             cursor: pointer;
-        }
-
-        .close:after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 2px;
-            height: 20px;
-            background: rgba(255, 255, 255, 1);
-            -webkit-transform: rotate(270deg);
-            -moz-transform: rotate(270deg);
-            -o-transform: rotate(270deg);
-            -ms-transform: rotate(270deg);
-            transform: rotate(270deg);
+        } 
+        .close>img{
+            width: 100%;
+            height: 100%;
         }
         .pic{
             width: 100%;
@@ -292,6 +297,9 @@
     <div>
         <div class="bptPlay">
             <div class="videoList">
+                <div class=" videoList_left"></div>
+                <div class=" videoList_buttom"></div>
+                <div class=" videoList_left_buttom"></div>
                 <div class="videoTitle">
                     <div class="videoTitle_text">
                         VIDEO
@@ -300,7 +308,7 @@
                 <ul class="infoList">
                     <!-- <li title="Country Portfolio & Country Plan User guide">
                                 <div class="playIcon">
-                                    <div class="playTrian"></div>
+                                   <img src="./img/play.png">
                                 </div>
                                 <div class="infoList_text">
                                     <p class="infoDesc" >Country Portfolio &
@@ -318,7 +326,9 @@
             <div class="closeBox">
                 <p></p>
                 <div class="closeButton">
-                    <span class="close"></span>
+                    <span class="close">
+                        <img src="./img/close.png">
+                    </span>
                 </div>
             </div>
             <div class="dplayer"></div>
@@ -330,100 +340,188 @@
             var $bptPlay = $(".bptPlay"),
                 $videoList = $(".videoList"),
                 $videoList_arrow = $(".videoList_arrow");
-            //按钮拖拽
-            //定义函数
-            function down(e) {
-                window.event.returnValue = false;//阻止事件的默认行为
-                window.event.cancelBubble = true;//停止冒泡
 
+           // 拖拽封装
+            function Drag(ele, type) {
+                this.type = type
+                this.ele = ele
+                //绑定事件
+                this.ele.on("mousedown", this.dragDown.bind(this))
+            }
+            //按下
+            Drag.prototype.dragDown = function (e) {
                 e.preventDefault()
                 e.stopPropagation()
-                //console.log(e)
-                //记录位置
+                //记录当前位置
                 this.x = e.clientX;
                 this.y = e.clientY;
-                //获取当前right值
-                this.right = $(this).css("right");
-
-                this.top = $(this).css("top");
-                //绑定事件
-               
-                $(document).on("mousemove", move.bind(this)).on("mouseup", up.bind(this))
+                //判断拖拽类型
+                switch (this.type) {
+                    //video拖拽
+                    case "video":
+                        this.left = this.ele.css("left");
+                        this.top = this.ele.css("top");
+                        break;
+                        //按钮拖拽
+                    case "bptPlay":
+                        //获取当前right值
+                        this.right = this.ele.css("right");
+                        this.top = this.ele.css("top");
+                        break;
+                        //左边放大缩小
+                    case "left":
+                        this.width = parseFloat($videoList.css("width"))
+                        break;
+                    case "top":
+                        this.height = parseFloat($videoList.css("height"))
+                        break;
+                    case "top_left":
+                        this.width = parseFloat($videoList.css("width"))
+                        this.height = parseFloat($videoList.css("height"))
+                        break;
+                }
+                $(document).on("mousemove", this.dragMove.bind(this)).on("mouseup", this.dragUp.bind(this))
             }
-
-            function move(e) {
+            //移动
+            Drag.prototype.dragMove = function (e) {
                 //移动的距离
                 var x = e.clientX - this.x;
                 var y = e.clientY - this.y;
-                //元素目前所处位置
-                var right = parseFloat(this.right) - x;
-                var top = y + parseFloat(this.top);
-                //边界值处理
-                var maxTop = $(document).height() - $(this).outerHeight();
-                var maxRight = $(document).width() - $(this).outerWidth();
-                right = right > maxRight ? maxRight : right < 0 ? 0 : right;
-                top = top > maxTop ? maxTop : top < 0 ? 0 : top;
+                switch (this.type) {
+                    case "video":
+                        //计算距离
+                        x = e.clientX - this.x;
+                        y = e.clientY - this.y;
+                        //所处位置
+                        var left = parseFloat(this.left) + x;
+                        var top = parseFloat(this.top) + y;
+                        var maxTop = $(document).height() - this.ele.outerHeight() - parseFloat(this.ele.css(
+                            "marginTop"));;
+                        var maxLeft = $(document).width() - this.ele.outerWidth() - parseFloat(this.ele.css(
+                            "marginLeft"));
+                        left = left > maxLeft ? maxLeft : (left < 0 ? 0 : left)
+                        top = top > maxTop ? maxTop : (top < 0 ? 0 : top)
+                        //赋值
+                        this.ele.css({
+                            left: left,
+                            top: top
+                        })
 
-                //video盒子边界处理
-                //水平方向  左:365
-                var W = $(document).width() - $(this).outerWidth() - $videoList.width()
-                if (right > W) {
-                    $videoList.css({
-                        right: -365
-                    })
-                    $videoList_arrow.removeClass("videoList_arrowRight").addClass("videoList_arrowLeft")
-                } else {
-                    //右
-                    $videoList.css({
-                        right: 60
-                    })
-                    $videoList_arrow.removeClass("videoList_arrowLeft").addClass("videoList_arrowRight")
-                }
-                //垂直方向
-                var H = $videoList.height()
-                if (top > H) {
-                    $videoList.css({
-                        top: -285
-                    })
-                    $videoList_arrow.css({
-                        top: 300
-                    })
+                        break;
+                    case "bptPlay":
+                        //元素目前所处位置
+                        // console.log(x)
+                        var right = parseFloat(this.right) - x;
+                        var top = y + parseFloat(this.top);
+                        //边界值处理
+                        var maxTop = $(document).height() - this.ele.outerHeight();
+                        var maxRight = $(document).width() - this.ele.outerWidth();
+                        right = right > maxRight ? maxRight : right < 0 ? 0 : right;
+                        top = top > maxTop ? maxTop : top < 0 ? 0 : top;
 
-                } else {
-                    $videoList.css({
-                        top: 0
-                    })
-                    $videoList_arrow.css({
-                        top: 20
-                    })
+                        //video盒子边界处理
+                        //水平方向  左:365
+                        var W = $(document).width() - this.ele.outerWidth() - $videoList.width()
+                      //  console.log($videoList.width())
+                        if (right > W) {
+                            $videoList.css({
+                                right: -$videoList.width()
+                            })
+                            $videoList_arrow.removeClass("videoList_arrowRight").addClass(
+                                "videoList_arrowLeft")
+                        } else {
+                            //右
+                            $videoList.css({
+                                right: 60
+                            })
+                            $videoList_arrow.removeClass("videoList_arrowLeft").addClass(
+                                "videoList_arrowRight")
+                        }
+                        //垂直方向
+                        var H = $videoList.height()
+                        console.log($videoList.height())
+                        if (top > H) {
+                            $videoList.css({
+                                top: -H
+                            })
+                            $videoList_arrow.css({
+                                top: 300
+                            })
+
+                        } else {
+                            $videoList.css({
+                                top: 0
+                            })
+                            $videoList_arrow.css({
+                                top: 20
+                            })
+                        }
+                        //元素应所处的位置
+                        this.ele.css({
+                            right: right,
+                            top: top
+                        })
+                        break;
+                    case "left":
+                        //计算距离
+                        x = e.clientX - this.x;
+                        //进行赋值操作
+                        x = -x + this.width
+                        x <= 80 ? x = 80 : null;
+                        $videoList.css("width", x)
+                        break;
+                    case "top":
+                        y = e.clientY - this.y;
+                        y = y + this.height
+                        y <= 200 ? y = 200 : null;
+                        $videoList.css("height", y)
+                        break;
+                    case "top_left":
+                        x = e.clientX - this.x;
+                        x = -x + this.width
+                        y = e.clientY - this.y;
+                        y = y + this.height
+                        x <= 80 ? x = 80 : null;
+                        y <= 200 ? y = 200 : null;
+                        $videoList.css({
+                            width: x,
+                            height: y
+                        })
+                        break;
                 }
-                //元素应所处的位置
-                $(this).css({
-                    right: right,
-                    top: top
-                })
+            }
+            //抬起
+            Drag.prototype.dragUp = function (e) {
+                $(document).off("mousemove").off("mouseup")
             }
 
-            function up(e) {
-                //移除事件
-               $(document).off()
-            }
-            $bptPlay.on("mousedown", down)
+            // 按钮拖拽
+            new Drag($bptPlay, "bptPlay")
 
+            //放大缩小
+            //获取元素
+            let $left = $(".videoList_left"),
+                $top = $(".videoList_buttom"),
+                $t_l = $(".videoList_left_buttom");
+            new Drag($left, "left")
+            new Drag($top, "top")
+            new Drag($t_l, "top_left")
             //鼠标经过
-            $bptPlay.on("mouseenter", function (e) {
-              $(this).stop().animate({
-                  width:50,
-                  height:50
-              },500)
-              
-                $videoList.show()
-            }).on("mouseleave", function (e) {
-                $(this).stop().animate({
-                  width:40,
-                  height:40
-              },500)
-                $videoList.hide()
+            $(document).on("click", function (e) {
+              if($(e.target).parents(".bptPlay").length||e.target.className==="bptPlay"){
+                  if($videoList[0].style.display!=="none")return
+                $bptPlay.stop().animate({
+                        width: 50,
+                        height: 50
+                    }, 500)
+                    $videoList.show()
+              }else{
+                $bptPlay.stop().animate({
+                        width: 40,
+                        height: 40
+                }, 500)
+                    $videoList.hide()
+              }          
             })
             //模拟数据
             var ary = [{
@@ -467,11 +565,46 @@
                     video: "https://pic.ibaotu.com/00/25/76/60w888piCFAz.mp4",
                     time: "2018-09-12",
                     new: true
+                }, ,
+                {
+                    info: "视频八",
+                    video: "https://pic.ibaotu.com/00/25/76/60w888piCFAz.mp4",
+                    time: "2018-09-12",
+                    new: true
                 },
+                {
+                    info: "视频八",
+                    video: "https://pic.ibaotu.com/00/25/76/60w888piCFAz.mp4",
+                    time: "2018-09-12",
+                    new: true
+                },
+                {
+                    info: "视频八",
+                    video: "https://pic.ibaotu.com/00/25/76/60w888piCFAz.mp4",
+                    time: "2018-09-12",
+                    new: true
+                },
+                {
+                    info: "视频八",
+                    video: "https://pic.ibaotu.com/00/25/76/60w888piCFAz.mp4",
+                    time: "2018-09-12",
+                    new: true
+                },
+                {
+                    info: "视频八",
+                    video: "https://pic.ibaotu.com/00/25/76/60w888piCFAz.mp4",
+                    time: "2018-09-12",
+                    new: true
+                },
+                {
+                    info: "视频八",
+                    video: "https://pic.ibaotu.com/00/25/76/60w888piCFAz.mp4",
+                    time: "2018-09-12",
+                    new: true
+                }
             ]
             var $infoList = $(".infoList");
 
-            var videoAry = [];
 
             //数据绑定页面
             var str1 = "",
@@ -484,17 +617,22 @@
                             url: item.video
                         })
                         dp.play()
+                        //标题也需要换
                     }
                 };
-                videoAry.push(obj)
                 if (item.new) {
                     str1 +=
                         '<li videoSrc=' + item.video +
-                        ' title='+ item.info+'><div class="playIcon"><div class="playTrian"></div></div><div class="infoList_text"><p class="infoDesc">' + item.info + '</p></div><div class="infoNew"><img src="./img/new.gif" alt=""></div></li>'
+                        ' title=' + item.info +
+                        '><div class="playIcon"><img src="./img/play.png"></div></div><div class="infoList_text"><p class="infoDesc">' +
+                        item.info +
+                        '</p></div><div class="infoNew"><img src="./img/new.gif" alt=""></div></li>'
                 } else {
                     str2 +=
                         '<li videoSrc=' + item.video +
-                        ' title='+ item.info+'><div class="playIcon"><div class="playTrian"></div></div><div class="infoList_text"><p class="infoDesc">' + item.info + '</p></div></li>'
+                        ' title=' + item.info +
+                        '><div class="playIcon"><img src="./img/play.png"></div></div><div class="infoList_text"><p class="infoDesc">' +
+                        item.info + '</p></div></li>'
                 }
             })
 
@@ -518,7 +656,7 @@
                         if ($closeBox.css("display") === "none") {
                             $closeBox.stop().fadeIn()
                         }
-                        clearTimeout(timer); //移动就会清楚定时器
+                        clearTimeout(timer); //移动就会清除定时器
                         //移动中
                         //3秒后判断
                         timer = setTimeout(function () {
@@ -539,14 +677,14 @@
                         marginLeft: 0,
                         marginTop: 0,
                     }, 1000, function () {
-                      //  $videoMask.hide()
+                        //  $videoMask.hide()
                     })
                     if (!/MSIE/.test(navigator.userAgent) & !/Trident/.test(navigator.userAgent)) {
                         dp.pause();
-                    }else{
-                            $video[0].pause()
+                    } else {
+                        $video[0].pause()
                     }
-                   
+
                 })
             }
             //区别IE和普通浏览器
@@ -567,7 +705,6 @@
                         pic: '',
                         type: 'auto'
                     },
-                    contextmenu: videoAry,
                 });
                 //绑定事件
                 $textList.each(function (index, item) {
@@ -580,7 +717,7 @@
                         //删除DOM树
                         $(this).children(".infoNew").remove();
                         //video动画出现
-                      //  $videoMask.show();
+                        //  $videoMask.show();
                         //文字绑定
                         //console.log($(this).find(".infoDesc").html())
                         var strBox = $(this).find(".infoDesc").html()
@@ -623,7 +760,7 @@
                         $videoList.hide(), //隐藏
                             //mask出现  
                             ary[index].new = false; //修改数据 
-                       // $videoMask.show();
+                        // $videoMask.show();
                         $(this).children(".infoNew").remove();
                         var strBox = $(this).find(".infoDesc").html()
                         $closeBox.children("p").text(strBox)
@@ -643,54 +780,14 @@
                     })
                 })
             }
-
-             //视频拖拽
-           function videoDown(e){
-               //记录当前位置
-               this.left=$videoBox.css("left");
-               this.top=$videoBox.css("top");
-               this.x=e.clientX;
-               this.y=e.clientY;
-               //绑定事件
-            //   $(document).on("mousemove",videoMove.bind(this)).on("mouseup",videoUp.bind(this))
-            document.onmousemove=videoMove.bind(this);
-            document.onmouseup=videoUp.bind(this)
-           }
-           function videoMove(e){
-           // console.log(this.top)
-               //计算距离
-               let x=e.clientX-this.x;
-               let y=e.clientY-this.y;
-               //边界判断
-            //let maxLeft=$(document).width()-$videoBox.innerWidth();
-              // let maxTop=document.documentElement.clientHeight-$videoBox.height()
-              // console.log(maxTop,$videoBox.height())
-               //所处位置
-               let left=parseFloat(this.left)+x;
-               let top=parseFloat(this.top)+y;
-             
-               var maxTop = $(document).height() - $(this).outerHeight()-parseFloat($(this).css("marginTop"));;
-                var maxLeft = $(document).width() - $(this).outerWidth()-parseFloat($(this).css("marginLeft"));
-                left=left>maxLeft?maxLeft:(left<0?0:left)
-                top=top>maxTop?maxTop:(top<0?0:top)
-               //赋值
-               $videoBox.css({
-                   left:left,
-                   top:top
-               })
-           }
-           function videoUp(e){
-               //去除事件
-               document.onmousemove=null
-                document.onmouseup=null
-           }
-           $videoBox.on("mousedown",videoDown)
-
-           
+                //video拖拽
+            new Drag($videoBox, "video")
 
 
         })(jQuery)
     </script>
+
+
 </body>
 
 </html>
