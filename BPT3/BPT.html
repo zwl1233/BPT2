@@ -179,15 +179,20 @@
         }
 
         .infoList_text {
-            width: 80%;
-            height:17px;
-            display: inline-block;
+            /* width: 80%; */
+            height:16px;
             vertical-align: middle;
+            position: absolute;
+            left: 20px;
+            right: 20px;
+            top: 50%;
+            margin-top:-8px; 
+
         }
 
         .infoDesc {
             width: 100%;
-            height: 17px;
+            height: 16px;
             font-size: 12px;
             /* font-family: PingFangSC-Regular; */
             font-weight: 400;
@@ -302,7 +307,7 @@
             bottom: 0;
         }
         .icon_left_buttom>.p1{
-            width: 25px;
+            width: 22px;
             height: 1px;
             background: #acacac;
             transform: rotate(45deg);
@@ -311,7 +316,7 @@
             left:-2px;
         }
         .icon_left_buttom>.p2{
-            width: 18px;
+            width: 13px;
             height: 1px;
             background: #acacac;
             transform: rotate(45deg);
@@ -320,7 +325,7 @@
             left:-1;
         }   
         .icon_left_buttom>.p3{
-            width: 11px;
+            width: 8px;
             height: 1px;
             background: #acacac;
             transform: rotate(45deg);
@@ -531,7 +536,7 @@
                         x = e.clientX - this.x;
                         //进行赋值操作
                         x = -x + this.width
-                        x <= 170 ? x = 170 : null;
+                        x <= 180 ? x = 180 : null;
                         $videoList.css("width", x)
                         break;
                     case "top":
@@ -545,7 +550,7 @@
                         x = -x + this.width
                         y = e.clientY - this.y;
                         y = y + this.height
-                        x <= 170 ? x = 170 : null;
+                        x <= 180 ? x = 180 : null;
                         y <= 250 ? y = 250 : null;
                         $videoList.css({
                             width: x,
@@ -594,7 +599,7 @@
                     new: true
                 },
                 {
-                    info: "视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二",
+                    info: "视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频二视频",
                     video: "https://pic.ibaotu.com/00/58/30/37g888piCqYc.mp4",
                     new: false
                 },
