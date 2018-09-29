@@ -153,6 +153,7 @@
             border-bottom: 1px solid rgba(243, 243, 243, 1);
             box-sizing: border-box;
             cursor: pointer;
+            position: relative;
         }
         .infoList>li:hover{
             background: rgba(0, 0, 0, 0.08)
@@ -164,7 +165,7 @@
 
         .playIcon {
             display: inline-block;
-            width: 5%;
+            width: 16px;
             height: 16px;
             position: relative;
             vertical-align: center;
@@ -199,8 +200,10 @@
         }
 
         .infoNew {
-            display: inline-block;
-            width: 5%;
+            position:absolute;
+            right:5px;
+            top: 0;
+            width: 16px;
             vertical-align: middle;
         }
 
@@ -273,6 +276,58 @@
             width: 100%;
             height: 100%;
         }
+        .icon_left{
+            width: 10px;
+            height: 20px;
+            position: absolute;
+            top: 50%;
+            margin-top:-10px;
+            left: 0;
+            background: red;
+        }
+        .icon_buttom{
+            width: 20px;
+            height: 10px;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            margin-left:-10px;
+            background: red;
+        }
+        .icon_left_buttom{
+            width: 15px;
+            height: 15px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
+        .icon_left_buttom>.p1{
+            width: 25px;
+            height: 1px;
+            background: #acacac;
+            transform: rotate(45deg);
+            position: absolute;
+            top:5px;
+            left:-2px;
+        }
+        .icon_left_buttom>.p2{
+            width: 18px;
+            height: 1px;
+            background: #acacac;
+            transform: rotate(45deg);
+            position: absolute;
+            top:8px;
+            left:-1;
+        }   
+        .icon_left_buttom>.p3{
+            width: 11px;
+            height: 1px;
+            background: #acacac;
+            transform: rotate(45deg);
+            position: absolute;
+            top:10px;
+            left:0;
+        }
 
     </style>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" type="text/javascript"></script>
@@ -293,6 +348,13 @@
                         VIDEO
                     </div>
                 </div>
+                <!-- <span class="icon_left"></span>
+                <span class="icon_buttom"></span> -->
+                <span class="icon_left_buttom">
+                    <p class="p1"></p>
+                    <p class="p2"></p>
+                    <p class="p3"></p>
+                </span>
                 <ul class="infoList">
                     <!-- <li title="Country Portfolio & Country Plan User guide">
                                 <div class="playIcon">
@@ -469,13 +531,13 @@
                         x = e.clientX - this.x;
                         //进行赋值操作
                         x = -x + this.width
-                        x <= 80 ? x = 80 : null;
+                        x <= 170 ? x = 170 : null;
                         $videoList.css("width", x)
                         break;
                     case "top":
                         y = e.clientY - this.y;
                         y = y + this.height
-                        y <= 200 ? y = 200 : null;
+                        y <= 250 ? y = 250 : null;
                         $videoList.css("height", y)
                         break;
                     case "top_left":
@@ -483,8 +545,8 @@
                         x = -x + this.width
                         y = e.clientY - this.y;
                         y = y + this.height
-                        x <= 80 ? x = 80 : null;
-                        y <= 200 ? y = 200 : null;
+                        x <= 170 ? x = 170 : null;
+                        y <= 250 ? y = 250 : null;
                         $videoList.css({
                             width: x,
                             height: y
