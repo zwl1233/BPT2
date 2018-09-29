@@ -662,7 +662,7 @@
                     video: "https://pic.ibaotu.com/00/25/76/60w888piCFAz.mp4",
                     time: "2018-09-12",
                     new: true
-                }, ,
+                }, 
                 {
                     info: "视频八",
                     video: "https://pic.ibaotu.com/00/25/76/60w888piCFAz.mp4",
@@ -815,6 +815,7 @@
                             height: 40
                         }, 500)
                         $videoList[0].style.display = "none"
+                        console.log(index,ary)
                         ary[index].new = false;
                         //删除DOM树
                         $(this).children(".infoNew").remove();
