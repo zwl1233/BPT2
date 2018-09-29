@@ -259,6 +259,8 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            cursor: pointer;
+            position: relative;
         }
          .close {
             position: absolute;
@@ -379,7 +381,7 @@
         </div>
         <div class="BPTvideo">
             <div class="closeBox">
-                <p></p>
+                <p title=""></p>
                 <div class="closeButton">
                     <span class="close">
                         <img src="./img/close.png">
@@ -564,6 +566,32 @@
                 $(document).off("mousemove").off("mouseup")
             }
 
+
+            //文字提示
+            function textRemind(ele,content) {
+                var box
+                ele.on("mouseenter", function (e) {
+                    //记录当前的位置
+                    var x = e.clientX;
+                    var y = e.clientY;
+                    box = document.createElement("div")
+                    $(box).css({
+                        padding: "1px 5px",
+                        border: "2px solid #acacac",
+                        maxWidth: "300px",
+                        position: "fixed",
+                        fontSize: "12px",
+                        color: "rgba(51, 51, 51,.7)",
+                        left: x + 10,
+                        top: y + 10,
+                        zIndex: 100,
+                    }).text(content)
+                    document.body.appendChild(box);
+                }).on("mouseleave", function () {
+                    $(box).remove()
+                })
+            }
+
             // 按钮拖拽
             new Drag($bptPlay, "bptPlay")
 
@@ -680,15 +708,6 @@
                 var str1 = "",
                     str2 = ""
                 ary.forEach(function (item) {
-                    var obj = {
-                        text: item.info,
-                        click: function (dp) {
-                            dp.switchVideo({
-                                url: item.video
-                            })
-                            dp.play()
-                        }
-                    };
                     if (item.new) {
                         str1 +=
                             '<li videoSrc=' + item.video + '><div class="playIcon"><img src="./img/play.png"></div></div><div class="infoList_text"><p class="infoDesc">' +
@@ -721,30 +740,10 @@
                 $(this).css({
                     position: "relative"
                 })
-                var box
-                $(this).on("mouseenter", function (e) {
-                        //记录当前的位置
-                        var x = e.clientX;
-                        var y = e.clientY;
-                        var text = $(this).find("p").text()
-                        box = document.createElement("div")
-                        $(box).css({
-                            padding: "1px 5px",
-                            border: "2px solid #acacac",
-                            maxWidth: "300px",
-                            position: "fixed",
-                            fontSize: "12px",
-                            color: "rgba(51, 51, 51,.7)",
-                            left: x + 10,
-                            top: y + 10
-                        }).text(text)
-                        document.body.appendChild(box);
-                        // $(this).append(box)
-                    }).on("mouseleave", function () {
-                        $(box).remove()
-                    })
+                var text = $(this).find("p").text()
+                textRemind($(this), text)
 
-                })
+            })
 
                 
 
@@ -820,11 +819,13 @@
                         //删除DOM树
                         $(this).children(".infoNew").remove();
                         //video动画出现
-                        //  $videoMask.show();
                         //文字绑定
-                        //console.log($(this).find(".infoDesc").html())
                         var strBox = $(this).find(".infoDesc").html()
                         $closeBox.children("p").text(strBox)
+                       // $closeBox.children("p").attr("title",strBox)
+                        //自定义文字提示
+                         textRemind($closeBox.children("p"),strBox)
+                    
                         $videoBox.animate({
                             width: 570,
                             height: 360,
@@ -869,6 +870,8 @@
                         $(this).children(".infoNew").remove();
                         var strBox = $(this).find(".infoDesc").html()
                         $closeBox.children("p").text(strBox)
+                        //文字提示
+                        textRemind($closeBox.children("p"),strBox)
                         var strPro = $(item).attr("videoSrc")
                         //不同
                         //切换资源
